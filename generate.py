@@ -1,46 +1,37 @@
 import pyrosim.pyrosim as pyrosim
-# SDF file
-pyrosim.Start_SDF("boxes.sdf")
 
-# rows, columns
-rows = 5
-cols = 5
+def Create_World():
+    """Creating a minimal world with a single block."""
+    pyrosim.Start_SDF("world.sdf")
+    # Move world block to background
+    pyrosim.Send_Cube(name="Box", pos=[-2, 0, 0.5], size=[1, 1, 1])
+    pyrosim.End()
 
-# blocks
-blocks = 10
+def Create_Robot():
+    """Creating a three-link, two-joint robot."""
+    pyrosim.Start_URDF("body.urdf")
 
-# shrink
-shrink = 0.9
+    # Torso 
+    pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1.5], size=[1, 1, 1])
 
-# dimensions
-start_length = 1
-start_width: int = 1
-start_height = 1
+    # BackLeg to Torso 
+    pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", 
+                       type="revolute", position=[-0.5, 0, 0.5])
 
-# position for Box
-x = 0
-y = 0
-z = start_height/2
+    # BackLeg 
+    pyrosim.Send_Cube(name="BackLeg", pos=[-0.5, 0, 0], size=[1, 1, 1])
 
-# spacing
-x_space = 1
-y_space = 1
+    # FrontLeg to Torso
+    pyrosim.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", 
+                       type="revolute", position=[0.5, 0, 0.5])
 
-for row in range(rows):
-    for col in range(cols):
-        length = start_length
-        width = start_width
-        height = start_height
+    # FrontLeg 
+    pyrosim.Send_Cube(name="FrontLeg", pos=[0.5, 0, 0], size=[1, 1, 1])
 
-        x = col * x_space
-        y = row * y_space
-        z = height/2
+    pyrosim.End()
+def main():
+    Create_World()
+    Create_Robot()
 
-        for i in range(blocks):
-            pyrosim.Send_Cube(name=f"Box_{i}", pos=[x,y,z], size=[length,width,height])
-            z += height
-            length *= shrink
-            width *= shrink
-            height *= shrink
-
-pyrosim.End()
+if __name__ == "__main__":
+    main()
