@@ -25,6 +25,7 @@ class SIMULATION:
             time.sleep(1/60)
 
             self.robot.Sense(t)
+            self.robot.Think()
             self.robot.Act(t)
 
         self.robot.Save_Sensor_Values

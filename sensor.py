@@ -13,4 +13,3 @@ class SENSOR:
     def Save_Values(self):
         filename = f"data/{self.linkName}_SensorValues.npy"
         numpy.save(filename, self.values)
-        print(f"Sensor values saved to: {filename}")
