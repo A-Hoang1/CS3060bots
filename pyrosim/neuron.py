@@ -43,6 +43,11 @@ class NEURON:
     def Is_Sensor_Neuron(self):
 
         return self.type == c.SENSOR_NEURON
+    
+    def Update_Sensor_Neuron(self):
+        self.Set_Value(
+            pyrosim.Get_Touch_Sensor_Value_For_Link( self.Get_Link_Name() )
+            )
 
     def Is_Hidden_Neuron(self):
 
@@ -51,6 +56,37 @@ class NEURON:
     def Is_Motor_Neuron(self):
 
         return self.type == c.MOTOR_NEURON
+    
+    def Update_Hidden_Or_Motor_Neuron(self, neurons, synpases):
+        # print("Value before summation:", self.value)
+        self.Set_Value(0.0)
+        # self.value = 0.0
+        # print("Currently updating neuron:", self.Get_Name())
+        for key in synpases:
+            # print("Synapse key:", key)
+            postSynName = key[1]
+
+            if postSynName == self.Get_Name():
+                preSynName = key[0]
+                # print("Pre-syn neuron:", preSynName, "Post-syn neuron:", postSynName)
+                weight = synpases[key].Get_Weight()
+                preSynValue = neurons[preSynName].Get_Value()
+                self.Allow_Presynpatic_Neuron_To_Influence_Me(weight, preSynValue)
+
+        self.Threshold()
+        # print("Value after summation:", self.value)
+        # exit()
+
+    def Allow_Presynpatic_Neuron_To_Influence_Me(self, weight, preSynValue):
+        # print("Allow_Presynaptic_Neuron_To_Influence_Me called!")
+        # print("Weight:", weight)
+        # print("Presyn neuron value:", preSynValue)
+        influence = weight * preSynValue
+        self.Add_To_Value(influence)
+        # exit()
+
+    def Threshold(self):
+        self.value = math.tanh(self.value)
 
     def Print(self):
 
