@@ -1,4 +1,5 @@
 import pyrosim.pyrosim as pyrosim
+import random
 
 def Create_World():
     pyrosim.Start_SDF("world.sdf")
@@ -55,6 +56,16 @@ def Generate_Brain():
 
     pyrosim.Send_Synapse( sourceNeuronName = 1, targetNeuronName = 3, weight = 0.90 )
     pyrosim.Send_Synapse( sourceNeuronName = 2, targetNeuronName = 4, weight = -0.1 )
+
+    sensor_neurons = [0, 1, 2]
+    motor_neurons = [3, 4]
+
+    for i in sensor_neurons:
+        for j in motor_neurons:
+            weight = random.uniform(-1, 1)
+            pyrosim.Send_Synapse(sourceNeuronName = i,
+                                 targetNeuronName= j,
+                                 weight = weight)
 
 def main():
     Create_World()
