@@ -8,13 +8,19 @@ from world import WORLD
 from robot import ROBOT
 
 class SIMULATION:
-    def __init__(self):
-        self.physicsClient = p.connect(p.GUI)
+    def __init__(self, directOrGUI):
+        if directOrGUI.upper() == "DIRECT":
+            self.physicsClient = p.connect(p.DIRECT)
+        else:
+            self.physicsClient = p.connect(p.GUI)
+
         p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         p.setGravity(0, 0, c.GRAVITY)
 
+        self.directOrGUI = directOrGUI
+        
         self.world = WORLD()
         self.robot = ROBOT()
 
@@ -32,3 +38,6 @@ class SIMULATION:
         self.robot.Save_Motor_Values
     def __del__(self):
         p.disconnect()
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()

@@ -2,7 +2,7 @@ import numpy
 import random
 
 # Simulation steps & timing
-STEPS = 1000
+STEPS = 500
 TIME_STEP = 1/60
 
 # Gravity
@@ -19,3 +19,6 @@ PHASE_OFFSET_FRONT  = 3.14
 
 # Motor force
 MAX_FORCE = 20
+
+# number of generations
+numOfGens = 10

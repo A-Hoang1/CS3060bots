@@ -33,7 +33,7 @@ class ROBOT:
             sensorObj.Get_Value(t)
 
     def Think(self):
-        self.nn.Print()
+        # self.nn.Print()
         self.nn.Update()
 
     def Act(self, t):
@@ -50,7 +50,7 @@ class ROBOT:
                     maxForce       = c.MAX_FORCE
                 )
 
-                print(neuronName, jointName, desiredAngle)
+               #  print(neuronName, jointName, desiredAngle)
 
         # for motorObj in self.motors.values():
         #     motorObj.Set_Value(t, self)
@@ -62,3 +62,13 @@ class ROBOT:
     def Save_Motor_Values(self):
         for motorObj in self.motors.values():
             motorObj.Save_Values()
+    
+    def Get_Fitness(self):
+        stateOfLinkZero = p.getLinkState(self.robotID, 0)
+        positionOfLinkZero = stateOfLinkZero[0]
+
+        xCoordinateOfLinkZero = positionOfLinkZero[0]
+
+        f = open("fitness.txt", "w")
+        f.write(str(xCoordinateOfLinkZero))
+        f.close()

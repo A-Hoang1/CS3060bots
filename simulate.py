@@ -1,4 +1,7 @@
+import sys
 from simulation import SIMULATION
 
-simulation = SIMULATION()
+directOrGUI = sys.argv[1] if len(sys.argv) > 1 else "DIRECT"
+simulation = SIMULATION(directOrGUI)
 simulation.Run() 
+simulation.Get_Fitness()
