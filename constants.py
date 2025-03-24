@@ -21,4 +21,7 @@ PHASE_OFFSET_FRONT  = 3.14
 MAX_FORCE = 20
 
 # number of generations
-numOfGens = 10
+numOfGens = 2
+
+# populationSize
+populationSize = 2
