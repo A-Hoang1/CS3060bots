@@ -22,7 +22,7 @@ class ROBOT:
         self.Prepare_To_Act()
 
         self.nn = NEURAL_NETWORK("brain" + str(self.myID) + ".nndf")
-        #  os.system("del brain" + str(self.myID) + ".nndf")
+        os.system("del brain" + str(self.myID) + ".nndf")
 
     def Prepare_To_Sense(self):
         for linkname in pyrosim.linkNamesToIndices:
@@ -50,7 +50,7 @@ class ROBOT:
                     bodyIndex      = self.robotID,
                     jointName      = jointName,
                     controlMode    = p.POSITION_CONTROL,
-                    targetPosition = desiredAngle,
+                    targetPosition = desiredAngle * c.motorJointRange,
                     maxForce       = c.MAX_FORCE
                 )
 
