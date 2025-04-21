@@ -2,7 +2,7 @@ import numpy
 import random
 
 # Simulation steps & timing
-STEPS = 300
+STEPS = 600
 TIME_STEP = 1/60
 
 # Gravity
@@ -21,15 +21,15 @@ PHASE_OFFSET_FRONT  = 3.14
 MAX_FORCE = 20
 
 # number of generations
-numOfGens = 10
+numOfGens = 200
 
 # populationSize
-populationSize = 1
+populationSize = 20
 
 # number of sensor and motor neurons
 numSensorNeurons = 9
 numMotorNeurons = 8
 
 # motorJoint range
-motorJointRange = 0.2
+motorJointRange = numpy.pi / 4
 

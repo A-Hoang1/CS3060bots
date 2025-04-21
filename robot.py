@@ -68,15 +68,14 @@ class ROBOT:
             motorObj.Save_Values()
     
     def Get_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robotID, 0)
-        positionOfLinkZero = stateOfLinkZero[0]
-
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotID)
+        basePosition = basePositionAndOrientation[0]
+        zPosition = basePosition[2]
 
         tmp_filename = "tmp" + str(self.myID) + ".txt"
         final_filename = "fitness" + str(self.myID) + ".txt"
         
         with open(tmp_filename, "w") as f:
-            f.write(str(xCoordinateOfLinkZero))
+            f.write(str(zPosition))
 
         os.replace(tmp_filename, final_filename)

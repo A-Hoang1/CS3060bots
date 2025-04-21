@@ -9,4 +9,4 @@ solutionID = sys.argv[2]
 
 simulation = SIMULATION(mode, solutionID)
 simulation.Run()
-simulation.Get_Fitness()
+simulation.Write_Touch_Sensor_Matrix()
